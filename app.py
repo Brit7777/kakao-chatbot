@@ -1,8 +1,14 @@
 from flask import Flask, request, jsonify
 import re
 import requests
+import pymysql
+from pymysql.cursors import DictCursor
 
 app = Flask(__name__)
+
+#db 연결
+conn = pymysql.connect(host='localhost', user='root', password='brit', db='new_db', charset='utf8')
+cursor = conn.cursor(DictCursor)
 
 @app.route('/keyboard')
 def keyboard():
@@ -31,6 +37,14 @@ def Message():
 				"text": "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
 			}
 		}
+	elif content == u"도움말":
+		dataSend = {
+			"message": {
+				"text": "웨이버스분들을 위한 런치봇입니다. 아닌 분들은 나가주세요:)\n 배고프시면 '점심 추천'를 쳐주세요~"
+			}
+		}
+	elif content == u"점심 추천":
+		
 	return jsonify(dataSend)
 
 
@@ -45,6 +59,10 @@ def get_weather():
 	nowTemp = re.search(nowTemp_regex, data)
 	
 	return summary.group(1), nowTemp.group(1)
-		
+
+def get_menu():
+	cursor.execute("SELECT name FROM brit")
+	result = cursor.fetchall()
+	
 if __name__ == '__main__':
 	app.run()
