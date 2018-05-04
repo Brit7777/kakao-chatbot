@@ -13,7 +13,6 @@ def keyboard():
 	
 @app.route('/message', methods=['POST'])
 def Message():
-	
 	dataReceive = request.get_json()
 	content = dataReceive['content']
  
@@ -24,16 +23,16 @@ def Message():
 			}
 		}
 	elif content == u"날씨":
-		weather, temp = self.get_weather();
+		weather, temp = get_weather();
 		dataSend = {
 			"message": {
-				"text": '오늘의 날씨는 {}이고\n온도는 {}℃네요.\n원하는 항목을 선택 혹은 대화창에 적어주세요.'.format(weather, temp)
+				"text": "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
 			}
 		}
 	return jsonify(dataSend)
 
 
-def get_weather(self):
+def get_weather():
 	regionCode = '09530540'
 	url = "https://m.weather.naver.com/m/main.nhn?regionCode=" + regionCode
 	summary_regex = r"weather_set_summary\">(.+?)<br>"
