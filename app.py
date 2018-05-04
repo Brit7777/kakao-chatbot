@@ -1,6 +1,16 @@
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
+
+@app.route('/keyboard')
+def keyboard():
+	dataSend = {
+	"type" : "texts",
+		"texts" : ["시작하기", "도움말"]
+	}
+ 
+	return jsonify(dataSend)
+
 	
 @app.route('/message', methods=['POST'])
 def Message():
