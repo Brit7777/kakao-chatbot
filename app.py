@@ -9,6 +9,8 @@ def keyboard():
 	dataSend = {
 		"type" : "buttons",
 		"buttons" : ["시작하기","도움말"]
+	}
+	return jsonify(dataSend)
 
 	
 @app.route('/message', methods=['POST'])
