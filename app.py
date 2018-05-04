@@ -11,9 +11,9 @@ def keyboard():
  
     return jsonify(dataSend)
 
-	@app.route('/message', methods=['POST'])
+	
+@app.route('/message', methods=['POST'])
 def Message():
-    
     dataReceive = request.get_json()
     content = dataReceive['content']
  
