@@ -19,7 +19,7 @@ def Message(request):
 		'message' : {
 			'text':'선택해주세요'
 		},
-		'keyboard : {
+		'keyboard' : {
 			"type":"buttons"
 			, "buttons" : ["중식", "양식", "한식"]
 		}
