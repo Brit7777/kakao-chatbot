@@ -40,8 +40,13 @@ def Message():
 				"text": "웨이버스분들을 위한 런치봇입니다. 아닌 분들은 나가주세요:)\n 배고프시면 '점심 추천'를 쳐주세요~"
 			}
 		}
-	#elif content == u"점심 추천":
-		
+	elif content == u"점심 추천":
+		menu = get_menu();
+		dataSend = {
+			"message": {
+				"text": "오늘의 점심은 " + str(menu) + "어때요?"
+			}
+		}
 	return jsonify(dataSend)
 
 
@@ -59,10 +64,12 @@ def get_weather():
 
 def get_menu():
 	#db 연결
-	conn = pymysql.connect(host='localhost', user='root', password='brit', db='new_db', charset='utf8')
+	conn = pymysql.connect(host='localhost', user='root', password='wavuslee', db='new_db', charset='utf8')
 	cursor = conn.cursor(DictCursor)
-	cursor.execute("SELECT name FROM brit")
+	cursor.execute("SELECT name FROM foodlist Where ssn=1")
 	result = cursor.fetchall()
+	return result
+	
 	
 if __name__ == '__main__':
 	app.run()
