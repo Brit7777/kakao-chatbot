@@ -64,7 +64,7 @@ def get_weather():
 
 def get_menu():
 	#db 연결
-	conn = pymysql.connect(host='127.0.0.1', user='root', password='wavuslee', db='new_db', charset='utf8')
+	conn = pymysql.connect(host='localhost', user='root', password='wavuslee', db='new_db', charset='utf8')
 	cursor = conn.cursor(DictCursor)
 	cursor.execute("SELECT name FROM foodlist WHERE ssn=1")
 	result = cursor.fetchall()
