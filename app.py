@@ -69,7 +69,7 @@ def get_menu():
 	cursor.execute("SELECT name FROM foodlist WHERE ssn=1")
 	result = cursor.fetchall()
 	
-	return result["name"]
+	return result
 	
 	
 if __name__ == '__main__':
