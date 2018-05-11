@@ -1,7 +1,9 @@
-from flask import Flask, request, jsonify
 import re
 import requests
 import pymysql
+import urllib3
+import json
+from flask import Flask, request, jsonify
 from pymysql.cursors import DictCursor
 
 app = Flask(__name__)
@@ -28,7 +30,7 @@ def Message():
 			}
 		}
 	elif content == u"날씨":
-		weather, temp = get_weather();
+		weather, temp = get_weather()
 		dataSend = {
 			"message": {
 				"text": "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
@@ -41,10 +43,18 @@ def Message():
 			}
 		}
 	elif content == u"점심 추천":
-		menu = get_menu();
+		menu = get_menu()
 		dataSend = {
 			"message": {
 				"text": "오늘의 점심은 " + str(menu) + "어때요?"
+			}
+		}
+	else:
+		string = get_text(content)
+		if string == "안녕":
+			dataSend = {
+			"message": {
+				"text": "안녕하세요~반갑습니다."
 			}
 		}
 	return jsonify(dataSend)
@@ -69,6 +79,35 @@ def get_menu():
 	cursor.execute("SELECT name FROM foodlist WHERE ssn=1")
 	result = cursor.fetchall()
 	
+	return result
+
+def get_text(text):
+	openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"
+	accessKey = "15d93105-fa2b-474a-9b1f-1cabf928df1d"
+	analysisCode = "morp"
+	#text = "오늘 점심 뭐 먹지"
+	
+	requestJson = {
+		"access_key": accessKey,
+		"argument": {
+			"text": text,
+			"analysis_code": analysisCode
+		}
+	}
+	
+	http = urllib3.PoolManager()
+	response = http.request(
+		"POST",
+		openApiURL,
+		headers={"Content-Type": "application/json; charset=UTF-8"},
+		body=json.dumps(requestJson)
+	)
+	
+	data = json.loads(str(response.data, "utf-8"))
+	data1 = data["return_object"]["sentence"]
+	b = data1[0]['morp']
+	if [element for element in b if element['lemma'] == '안녕']:
+		result = '안녕'
 	return result
 	
 	
