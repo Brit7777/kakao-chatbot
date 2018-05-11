@@ -108,6 +108,8 @@ def get_text(text):
 	b = data1[0]['morp']
 	if [element for element in b if element['lemma'] == '안녕']:
 		result = '안녕'
+	elif [element for element in b if element['lemma'] == '날씨']:
+		result = '날씨'
 	return result
 	
 	
