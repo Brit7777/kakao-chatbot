@@ -29,13 +29,6 @@ def Message():
 				"text": "안녕하세요~웨이버스 런치봇입니다!무엇을 도와드릴까요?"
 			}
 		}
-	elif content == u"날씨":
-		weather, temp = get_weather()
-		dataSend = {
-			"message": {
-				"text": "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
-			}
-		}
 	elif content == u"도움말":
 		dataSend = {
 			"message": {
@@ -53,10 +46,17 @@ def Message():
 		string = get_text(content)
 		if string == "안녕":
 			dataSend = {
-			"message": {
-				"text": "안녕하세요~반갑습니다."
+				"message": {
+					"text": "안녕하세요~반갑습니다!"
+				}
 			}
-		}
+		elif string =="날씨":
+			weather, temp = get_weather()
+			dataSend = {
+				"message": {
+					"text": "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
+				}
+			}	
 	return jsonify(dataSend)
 
 
