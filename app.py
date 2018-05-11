@@ -50,7 +50,7 @@ def Message():
 					"text": "안녕하세요~반갑습니다!"
 				}
 			}
-		elif string =="날씨":
+		elif string == "날씨":
 			weather, temp = get_weather()
 			dataSend = {
 				"message": {
