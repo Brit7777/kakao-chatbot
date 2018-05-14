@@ -5,7 +5,7 @@ import urllib3
 import json
 from flask import Flask, request, jsonify
 from pymysql.cursors import DictCursor
-from flaskext.sqlalchemy import SQLAlchemy
+from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
