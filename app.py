@@ -12,6 +12,19 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['postgres://mptqompjxuqoky:64
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+class User(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(80))
+	location = db.Column(db.String(120), unique=True)
+
+	def __init__(self, name, location):
+		self.name = name
+		self.location = location
+
+	def __repr__(self):
+		return '<Name %r>' % self.name
+
+		
 @app.route('/keyboard')
 def keyboard():
 	dataSend = {
@@ -75,7 +88,11 @@ def get_weather():
 	
 	return summary.group(1), nowTemp.group(1)
 
-
+def menu():
+	user = User('밥버거', '구로구')
+	db.session.add(user)
+	db.session.commit()
+	returnn user.name
 
 
 def get_text(text):
