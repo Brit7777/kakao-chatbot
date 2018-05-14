@@ -92,7 +92,7 @@ def menu():
 	user = User('밥버거', '구로구')
 	db.session.add(user)
 	db.session.commit()
-	returnn user.name
+	return user.name
 
 
 def get_text(text):
