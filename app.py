@@ -51,13 +51,6 @@ def Message():
 				"text": "웨이버스분들을 위한 런치봇입니다. 아닌 분들은 나가주세요:)\n 배고프시면 '점심 추천'를 쳐주세요~"
 			}
 		}
-	elif content == u"점심 추천":
-		menu = get_menu()
-		dataSend = {
-			"message": {
-				"text": "오늘의 점심은 " + str(menu) + "어때요?"
-			}
-		}
 	else:
 		string = get_text(content)
 		if string == "안녕":
@@ -73,6 +66,13 @@ def Message():
 					"text": "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
 				}
 			}	
+		elif string == "점심":
+			menu = get_menu()
+			dataSend = {
+				"message": {
+					"text": "오늘의 점심은 " + str(menu) + "어때요?"
+				}
+			}
 	return jsonify(dataSend)
 
 
@@ -89,7 +89,7 @@ def get_weather():
 	return summary.group(1), nowTemp.group(1)
 
 def get_menu():
-	user = User('밥버거', '구로구')
+	user = User('봉추찜닭', '구로구')
 	db.session.add(user)
 	db.session.commit()
 	return user.name
@@ -99,7 +99,6 @@ def get_text(text):
 	openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"
 	accessKey = "15d93105-fa2b-474a-9b1f-1cabf928df1d"
 	analysisCode = "morp"
-	#text = "오늘 점심 뭐 먹지"
 	
 	requestJson = {
 		"access_key": accessKey,
@@ -124,6 +123,8 @@ def get_text(text):
 		result = '안녕'
 	elif [element for element in b if element['lemma'] == '날씨']:
 		result = '날씨'
+	elif [element for element in b if element['lemma'] == '점심']:
+		result = '점심'
 	return result
 	
 	
