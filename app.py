@@ -6,11 +6,11 @@ import json
 import os
 import sqlalchemy
 from flask import Flask, request, jsonify
-from pymysql.cursors import DictCursor
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 @app.route('/keyboard')
@@ -78,12 +78,8 @@ def get_weather():
 
 def get_menu():
 	#db 연결
-	conn = pymysql.connect(host='127.0.0.1', user='root', password='wavuslee', db='new_db', charset='utf8')
-	cursor = conn.cursor(DictCursor)
-	cursor.execute("SELECT name FROM foodlist WHERE ssn=1")
-	result = cursor.fetchall()
-	
-	return result
+
+
 
 def get_text(text):
 	openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"
