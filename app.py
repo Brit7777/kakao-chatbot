@@ -76,8 +76,6 @@ def get_weather():
 	
 	return summary.group(1), nowTemp.group(1)
 
-def get_menu():
-	#db 연결
 
 
 
