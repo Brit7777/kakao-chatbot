@@ -8,7 +8,7 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['postgres://mptqompjxuqoky:64a85490a0517fd0ab6a2b27f87be93baac5726829b8f62d5fc87d29ef2bd927@ec2-54-204-46-236.compute-1.amazonaws.com:5432/d7ub5amthegeme']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
