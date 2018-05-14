@@ -3,6 +3,7 @@ import requests
 import pymysql
 import urllib3
 import json
+import os
 import sqlalchemy
 from flask import Flask, request, jsonify
 from pymysql.cursors import DictCursor
