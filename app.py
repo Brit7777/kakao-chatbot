@@ -88,7 +88,7 @@ def get_weather():
 	
 	return summary.group(1), nowTemp.group(1)
 
-def menu():
+def get_menu():
 	user = User('밥버거', '구로구')
 	db.session.add(user)
 	db.session.commit()
