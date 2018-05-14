@@ -1,6 +1,5 @@
 import re
 import requests
-import pymysql
 import urllib3
 import json
 import os
