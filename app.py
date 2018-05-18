@@ -17,10 +17,8 @@ class User(db.Model):
 	name = db.Column(db.String(80))
 	location = db.Column(db.String(120), unique=True)
 	weather = db.Column(db.String(20))
-	#한식, 일식, 중식, 양식
-	type = db.Column(db.String(20))
 	
-	def __init__(self, name, location, weather, type):
+	def __init__(self, name, location, weather):
 		self.name = name
 		self.location = location
 		self.weather = weather
@@ -46,7 +44,12 @@ def Message():
 	insert_menulist('낭만부대찌개', '구로동 212-8 대륭포스트타워1차 B104호', '흐림')
 	insert_menulist('호우양꼬치', '서울 구로구 디지털로32나길 17-6', '비')
 	insert_menulist('멘무샤', '구로동 212-8 대륭포스트타워1차', '맑음')
-
+	insert_menulist('봉추찜닭', '구로동 188-25 지밸리비즈플라자', '맑음')
+	insert_menulist('포36거리', '구로동 212-8 대륭포스트타워1차', '비')
+	insert_menulist('5 pane', '서울 구로구 디지털로26길 111', '맑음')
+	insert_menulist('홍콩반점', '서울 구로구 구로동 1125-15', '흐림')
+	insert_menulist('coro', '서울 구로구 디지털로32다길 30', '흐림')
+	insert_menulist('영호돈까스', '서울 구로구 시흥대로163길 21', '맑음')
 	
 	dataReceive = request.get_json()
 	content = dataReceive['content']
