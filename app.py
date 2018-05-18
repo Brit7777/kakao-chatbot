@@ -12,7 +12,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-class User(db.Model):
+class FoodList(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(80))
 	location = db.Column(db.String(120), unique=True)
@@ -105,13 +105,13 @@ def get_weather():
 
 	
 def insert_menulist(name, location, weather): 
-	user = User(name, location, weather)
-	db.session.add(user)
+	foodlist = FoodList(name, location, weather)
+	db.session.add(foodlist)
 	db.session.commit()
 
 def get_menu():
 	real_weather, temp = get_weather()
-	menu = User.query.filter_by(weather=real_weather).first()
+	menu = FoodList.query.filter_by(weather=real_weather).first()
 	return menu.name
 
 
