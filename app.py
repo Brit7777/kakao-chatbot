@@ -22,7 +22,6 @@ class User(db.Model):
 		self.name = name
 		self.location = location
 		self.weather = weather
-		self.type = type
 
 	def __repr__(self):
 		return '<Name %r>' % self.name
@@ -105,8 +104,8 @@ def get_weather():
 	return summary.group(1), nowTemp.group(1)
 
 	
-def insert_menulist(name,location,weather): 
-	user = User(name,location,weather)
+def insert_menulist(name, location, weather): 
+	user = User(name, location, weather)
 	db.session.add(user)
 	db.session.commit()
 
