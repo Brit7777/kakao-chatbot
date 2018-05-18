@@ -89,8 +89,8 @@ def get_weather():
 	return summary.group(1), nowTemp.group(1)
 
 def get_menu():
-	user = User('봉추찜닭', '영등포구')
-	db.session.add(user)
+	all_users = User.query.all()
+	db.session.delete(all_users)
 	db.session.commit()
 	return user.name
 
