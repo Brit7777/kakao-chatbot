@@ -105,8 +105,8 @@ def get_weather():
 	return summary.group(1), nowTemp.group(1)
 
 	
-def insert_menulist(name,location,weather,type): 
-	user = User(name,location,weather,type)
+def insert_menulist(name,location,weather): 
+	user = User(name,location,weather)
 	db.session.add(user)
 	db.session.commit()
 
