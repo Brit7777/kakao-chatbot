@@ -93,13 +93,13 @@ def get_weather():
 	return summary.group(1), nowTemp.group(1)
 
 	
-def insert_menulist(name, location, weather): 
-	foodlist = FoodList(name, location, weather)
+def insert_menulist(): 
+	foodlist = FoodList('최우영스시', '서울 구로구 디지털로 288', '맑음')
 	db.session.add(foodlist)
 	db.session.commit()
 
 def get_menu():
-	insert_menulist('최우영스시', '서울 구로구 디지털로 288', '맑음')
+	insert_menulist()
 	real_weather, temp = get_weather()
 	menu = FoodList.query.filter_by(weather=real_weather).first()
 	return menu.name
