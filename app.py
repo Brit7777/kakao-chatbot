@@ -4,6 +4,7 @@ import urllib3
 import json
 import os
 import sqlalchemy
+import random
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
@@ -29,7 +30,7 @@ class FoodList(db.Model):
 @app.route('/keyboard')
 def keyboard():
 	#초기 데이터 insert
-	insert_data()
+	#insert_data()
 	dataSend = {
 		"type" : "buttons",
 		"buttons" : ["시작하기","도움말"]
@@ -45,13 +46,13 @@ def Message():
 	if content == u"시작하기":
 		dataSend = {
 			"message": {
-				"text": "안녕하세요~웨이버스 런치봇입니다!무엇을 도와드릴까요?"
+				"text": "'웨이버스 런치봇'입니다. 친구 추가해 주셔서 감사합니다. \n 앞으로 점심은 저에게 맡겨주세요."
 			}
 		}
 	elif content == u"도움말":
 		dataSend = {
 			"message": {
-				"text": "웨이버스분들을 위한 런치봇입니다. 아닌 분들은 나가주세요:)\n 배고프시면 '점심 추천'를 쳐주세요~"
+				"text": "웨이버스 직원분들을 위한 런치봇입니다.\n 배고프시면 '점심 추천'를 쳐주세요~"
 			}
 		}
 	else:
@@ -73,35 +74,32 @@ def Message():
 			menu = get_menu()
 			dataSend = {
 				"message": {
-					"text": "오늘의 점심은 " + str(menu) + "어때요?"
+					"text": "점심으로 오늘의 날씨에 어울리는 '" + str(menu) + "' 어때요?"
 				}
 			}
+		else:
+			dataSend = {
+				"message": {
+					"text": "잘 못알아듣겠습니다. 다른 식으로 시도해보세요~"
+				}
 		
 	return jsonify(dataSend)
 
 
 def insert_data():
+	db.session.add_all([
+	FoodList('최우영스시', '서울 구로구 디지털로 288', '맑음'),
+	FoodList('낭만부대찌개', '구로동 212-8 대륭포스트타워1차 B104호', '흐림'),
+	FoodList('호우양꼬치', '서울 구로구 디지털로32나길 17-6', '비'),
+	FoodList('멘무샤', '구로동 212-8 대륭포스트타워1차', '맑음'),
+	FoodList('봉추찜닭', '구로동 188-25 지밸리비즈플라자', '맑음'),
+	FoodList('포36거리', '구로동 212-8 대륭포스트타워1차 지하', '비'),
+	FoodList('5 pane', '서울 구로구 디지털로26길 111', '맑음'),
+	FoodList('홍콩반점', '서울 구로구 구로동 1125-15', '흐림'),
+	FoodList('coro', '서울 구로구 디지털로32다길 30', '흐림'),
+	FoodList('영호돈까스', '서울 구로구 시흥대로163길 21', '맑음')
+    ])
 	
-	foodlist1 = FoodList('최우영스시', '서울 구로구 디지털로 288', '맑음')
-	foodlist2 = FoodList('낭만부대찌개', '구로동 212-8 대륭포스트타워1차 B104호', '흐림')
-	foodlist3 = FoodList('호우양꼬치', '서울 구로구 디지털로32나길 17-6', '비')
-	foodlist4 = FoodList('멘무샤', '구로동 212-8 대륭포스트타워1차', '맑음')
-	foodlist5 = FoodList('봉추찜닭', '구로동 188-25 지밸리비즈플라자', '맑음')
-	foodlist6 = FoodList('포36거리', '구로동 212-8 대륭포스트타워1차 지하', '비')
-	foodlist7 = FoodList('5 pane', '서울 구로구 디지털로26길 111', '맑음')
-	foodlist8 = FoodList('홍콩반점', '서울 구로구 구로동 1125-15', '흐림')
-	foodlist9 = FoodList('coro', '서울 구로구 디지털로32다길 30', '흐림')
-	foodlist10 = FoodList('영호돈까스', '서울 구로구 시흥대로163길 21', '맑음')
-	db.session.add(foodlist1)
-	db.session.add(foodlist2)
-	db.session.add(foodlist3)
-	db.session.add(foodlist4)
-	db.session.add(foodlist5)
-	db.session.add(foodlist6)
-	db.session.add(foodlist7)
-	db.session.add(foodlist8)
-	db.session.add(foodlist9)
-	db.session.add(foodlist10)
 	db.session.commit()
 	
 def get_weather():
@@ -118,7 +116,9 @@ def get_weather():
 
 def get_menu():
 	real_weather, temp = get_weather()
-	menu = FoodList.query.filter_by(weather=real_weather).first()
+	menus = FoodList.query.filter_by(weather=real_weather)
+	rand = random.randrange(0, session.query(menus).count()) 
+	menu = session.query(menus)[rand]
 	return menu.name
 
 
