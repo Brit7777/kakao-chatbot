@@ -6,15 +6,29 @@ import os
 import sqlalchemy
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from models import FoodList, db
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+class FoodList(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(80))
+	location = db.Column(db.String(120), unique=True)
+	weather = db.Column(db.String(20))
+	
+	def __init__(self, name, location, weather):
+		self.name = name
+		self.location = location
+		self.weather = weather
+
+	def __repr__(self):
+		return '<Name %r>' % self.name
 		
 @app.route('/keyboard')
 def keyboard():
-	#초기 데이터 insert	
+	#초기 데이터 insert
+	insert_data()
 	dataSend = {
 		"type" : "buttons",
 		"buttons" : ["시작하기","도움말"]
@@ -65,6 +79,30 @@ def Message():
 	return jsonify(dataSend)
 
 
+def insert_data():
+	
+	foodlist1 = FoodList('최우영스시', '서울 구로구 디지털로 288', '맑음')
+	foodlist2 = FoodList('낭만부대찌개', '구로동 212-8 대륭포스트타워1차 B104호', '흐림')
+	foodlist3 = FoodList('호우양꼬치', '서울 구로구 디지털로32나길 17-6', '비')
+	foodlist4 = FoodList('멘무샤', '구로동 212-8 대륭포스트타워1차', '맑음')
+	foodlist5 = FoodList('봉추찜닭', '구로동 188-25 지밸리비즈플라자', '맑음')
+	foodlist6 = FoodList('포36거리', '구로동 212-8 대륭포스트타워1차', '비')
+	foodlist7 = FoodList('5 pane', '서울 구로구 디지털로26길 111', '맑음')
+	foodlist8 = FoodList('홍콩반점', '서울 구로구 구로동 1125-15', '흐림')
+	foodlist9 = FoodList('coro', '서울 구로구 디지털로32다길 30', '흐림')
+	foodlist10 = FoodList('영호돈까스', '서울 구로구 시흥대로163길 21', '맑음')
+	db.session.add(foodlist1)
+	db.session.add(foodlist2)
+	db.session.add(foodlist3)
+	db.session.add(foodlist4)
+	db.session.add(foodlist5)
+	db.session.add(foodlist6)
+	db.session.add(foodlist7)
+	db.session.add(foodlist8)
+	db.session.add(foodlist9)
+	db.session.add(foodlist10)
+	db.session.commit()
+	
 def get_weather():
 	regionCode = '09530540'
 	url = "https://m.weather.naver.com/m/main.nhn?regionCode=" + regionCode
