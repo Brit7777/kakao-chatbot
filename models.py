@@ -1,8 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
-import app
+from app import app
 db = SQLAlchemy(app)
 
 class FoodList(db.Model):
+	__tablename__ = 'food_list'
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(80))
 	location = db.Column(db.String(120), unique=True)
