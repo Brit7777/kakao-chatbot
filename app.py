@@ -82,7 +82,7 @@ def Message():
 				"message": {
 					"text": "잘 못알아듣겠습니다. 다른 식으로 시도해보세요~"
 				}
-		
+			}
 	return jsonify(dataSend)
 
 
