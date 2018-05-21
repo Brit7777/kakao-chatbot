@@ -29,18 +29,7 @@ class FoodList(db.Model):
 		
 @app.route('/keyboard')
 def keyboard():
-	#초기 데이터 insert
-	insert_menulist('최우영스시', '서울 구로구 디지털로 288', '맑음')
-	insert_menulist('낭만부대찌개', '구로동 212-8 대륭포스트타워1차 B104호', '흐림')
-	insert_menulist('호우양꼬치', '서울 구로구 디지털로32나길 17-6', '비')
-	insert_menulist('멘무샤', '구로동 212-8 대륭포스트타워1차', '맑음')
-	insert_menulist('봉추찜닭', '구로동 188-25 지밸리비즈플라자', '맑음')
-	insert_menulist('포36거리', '구로동 212-8 대륭포스트타워1차', '비')
-	insert_menulist('5 pane', '서울 구로구 디지털로26길 111', '맑음')
-	insert_menulist('홍콩반점', '서울 구로구 구로동 1125-15', '흐림')
-	insert_menulist('coro', '서울 구로구 디지털로32다길 30', '흐림')
-	insert_menulist('영호돈까스', '서울 구로구 시흥대로163길 21', '맑음')
-	
+	#초기 데이터 insert	
 	dataSend = {
 		"type" : "buttons",
 		"buttons" : ["시작하기","도움말"]
@@ -110,6 +99,7 @@ def insert_menulist(name, location, weather):
 	db.session.commit()
 
 def get_menu():
+	insert_menulist('최우영스시', '서울 구로구 디지털로 288', '맑음')
 	real_weather, temp = get_weather()
 	menu = FoodList.query.filter_by(weather=real_weather).first()
 	return menu.name
