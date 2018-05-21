@@ -6,26 +6,11 @@ import os
 import sqlalchemy
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from models import FoodList, db
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-
-class FoodList(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(80))
-	location = db.Column(db.String(120), unique=True)
-	weather = db.Column(db.String(20))
-	
-	def __init__(self, name, location, weather):
-		self.name = name
-		self.location = location
-		self.weather = weather
-
-	def __repr__(self):
-		return '<Name %r>' % self.name
-
 		
 @app.route('/keyboard')
 def keyboard():
@@ -92,14 +77,7 @@ def get_weather():
 	
 	return summary.group(1), nowTemp.group(1)
 
-	
-def insert_menulist(): 
-	foodlist = FoodList('최우영스시', '서울 구로구 디지털로 288', '맑음')
-	db.session.add(foodlist)
-	db.session.commit()
-
 def get_menu():
-	insert_menulist()
 	real_weather, temp = get_weather()
 	menu = FoodList.query.filter_by(weather=real_weather).first()
 	return menu.name
