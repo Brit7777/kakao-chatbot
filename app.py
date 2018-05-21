@@ -117,8 +117,8 @@ def get_weather():
 def get_menu():
 	real_weather, temp = get_weather()
 	menus = FoodList.query.filter_by(weather=real_weather)
-	rand = random.randrange(0, session.query(menus).count()) 
-	menu = session.query(menus)[rand]
+	rand = random.randrange(0, db.session.query(menus).count()) 
+	menu = db.session.query(menus)[rand]
 	return menu.name
 
 
