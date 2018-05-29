@@ -71,7 +71,7 @@ def Message():
 				}
 			}	
 		elif string == "점심" or string == "다시":
-			menu = get_menu()
+			global menu = get_menu()
 			dataSend = {
 				"message": {
 					"text": "점심으로 오늘의 날씨에 어울리는 '" + str(menu.name) + "' 어때요?\n 마음에 드시면 '콜'라고 말해주세요! 별로일 경우 '다시'라고 말해주시면 다시 추천 도와드릴게요^^"
