@@ -70,11 +70,17 @@ def Message():
 					"text": "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
 				}
 			}	
-		elif string == "점심":
+		elif string == "점심" || string == "다시":
 			menu = get_menu()
 			dataSend = {
 				"message": {
-					"text": "점심으로 오늘의 날씨에 어울리는 '" + str(menu) + "' 어때요?"
+					"text": "점심으로 오늘의 날씨에 어울리는 '" + str(menu) + "' 어때요?\n 마음에 드시면 '콜'라고 말해주세요! 별로일 경우 '다시'라고 말해주시면 다시 추천 도와드릴게요^^"
+				}
+			}
+		elif string == "콜":
+			dataSend = {
+				"message": {
+					"text": "탁월한 선택입니다! \n 오늘의 점심'" + str(menu.name) + "'의 위치는" + str(menu.location) + "입니다.")
 				}
 			}
 		else:
@@ -115,12 +121,12 @@ def get_weather():
 	return summary.group(1), nowTemp.group(1)
 
 def get_menu():
+	global menu  #전역변수
 	real_weather, temp = get_weather()
 	menus = FoodList.query.filter_by(weather=real_weather)
 	rand = random.randrange(0, menus.count()) 
 	menu = menus[rand]
 	return menu.name
-
 
 def get_text(text):
 	openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"
@@ -152,6 +158,10 @@ def get_text(text):
 		result = '날씨'
 	elif [element for element in b if element['lemma'] == '점심']:
 		result = '점심'
+	elif [element for element in b if element['lemma'] == '좋']:
+		result = '콜'
+	elif [element for element in b if element['lemma'] == '싫']:
+		result = '다시'
 	else:
 		result = '미등록'
 	return result
