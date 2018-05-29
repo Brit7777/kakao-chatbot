@@ -74,7 +74,7 @@ def Message():
 			menu = get_menu()
 			dataSend = {
 				"message": {
-					"text": "점심으로 오늘의 날씨에 어울리는 '" + str(menu) + "' 어때요?\n 마음에 드시면 '콜'라고 말해주세요! 별로일 경우 '다시'라고 말해주시면 다시 추천 도와드릴게요^^"
+					"text": "점심으로 오늘의 날씨에 어울리는 '" + str(menu.name) + "' 어때요?\n 마음에 드시면 '콜'라고 말해주세요! 별로일 경우 '다시'라고 말해주시면 다시 추천 도와드릴게요^^"
 				}
 			}
 		elif string == "콜":
@@ -121,12 +121,11 @@ def get_weather():
 	return summary.group(1), nowTemp.group(1)
 
 def get_menu():
-	#global menu  #전역변수
 	real_weather, temp = get_weather()
 	menus = FoodList.query.filter_by(weather=real_weather)
 	rand = random.randrange(0, menus.count()) 
 	menu = menus[rand]
-	return menu.name
+	return menu
 
 def get_text(text):
 	openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"
