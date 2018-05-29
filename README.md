@@ -162,6 +162,30 @@ class User(db.Model):
 
     def __repr__(self):
         return '<Name %r>' % self.name
-        
-  ##
+ 
  ```
+데이터 추가 
+Inserting data
+```
+user = User('John Doe', 'john.doe@example.com')
+db.session.add(user)
+db.session.commit()
+ 
+ ```
+ 데이터 가져오기
+ Selecting all data
+ ```
+ all_users = User.query.all()
+ ```
+ 데이터 지우기
+ deleting data
+ ```
+user = User('John Doe', 'john.doe@example.com')
+db.session.delete(user)
+db.session.commit()
+ ```
+ 
+ ## Keeping Heroku awake
+ setInterval.js를 통해 Heroku 서버를 5분마다 깨워주도록 합니다. 
+ 
+ With the help of setInterval.js file, wake Heroku server up every 5 minutes.
