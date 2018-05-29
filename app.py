@@ -80,7 +80,7 @@ def Message():
 		elif string == "콜":
 			dataSend = {
 				"message": {
-					"text": "탁월한 선택입니다! \n 오늘의 점심'" + str(menu.name) + "'의 위치는" + str(menu.location) + "입니다.")
+					"text": "탁월한 선택입니다! \n 오늘의 점심'" + str(menu.name) + "'의 위치는" + str(menu.location) + "입니다."
 				}
 			}
 		else:
