@@ -2,7 +2,7 @@
 
 해당 튜토리얼은 카카오톡 사용자에 한해 간단하게 점심을 추천해주는 챗봇을 구현하기 위한 페이지입니다. '웨이버스 런치봇'은 Flask 라이브러리와 Heroku 무료 호스팅서버를 사용하였으며 DB는 Heroku에서 제공하는 Postgresql 기반으로 제공됩니다. 이 뿐만 아니라, 인공지능적 요소를 결합하기 위해 언어 분석에 사용되는 공공 인공지능 오픈 API '엑소브레인'을 적용하여 특정 단어가 포함되어 있는 문장에 대한 대답 과정을 구현하였습니다. 
 
-This tutorial is only for KaokaoTalk users to implement a simple chatbot that can be utilized for lunch recommendation. 'Wavus Lunchbot' is based on 'Flask' library and a free hosting server called 'Heroku', and its database is 'Postgresql' which is also a complimentary service that Heroku offers. Moreover, taking 'AI' into account, the public Open Source API 'Exobrain' has taken part in analyzing the sentence coming from the user so that lunchbot can respond to the sentence which includes a certain word. 
+This tutorial is only for KaokaoTalk users to implement a simple chatbot that can be utilized for lunch recommendation. 'Wavus Lunchbot' is based on 'Flask' library and a free hosting server called 'Heroku', and its database is 'Postgresql' which is also a complimentary service that Heroku offers. Moreover, taking 'AI' into account, the public Open Source API 'Exobrain' has taken part in analyzing the sentence coming from the user so that lunchbot can respond to the sentence which contains a certain word. 
 
 ## Getting Started
 카카오톡 플러스친구 관리자 계정을 등록하기 아래 웹사이트에 접속하여 본인이 원하는 플러스친구 이름 및 사진을 설정합니다.
@@ -41,13 +41,21 @@ cmd창에서 Heroku 접속
 Access to Heroku through cmd
 ```
 $ heroku login
-//type id
-//type pwd
+#type id
+#type pwd
 ```
 Git에서 사용 가능한 Heroku 저장소 형성
 create Heroku repository for Git
 ```
 $ heroku create
+```
+연동된 DB url 확인
+check for the database url connected to the repository
+```
+$ heroku config
+//내용
+=== mighty-spire-71391 Config Vars
+DATABASE_URL: postgres://mptqompjxuqoky:64a85490a0517fd0ab6a2b27f87be93baac5726829b8f62d5fc87d29ef2bd927@ec2-54-204-46-236.compute-1.amazonaws.com:5432/d7ub5amthegeme
 ```
 4. Heroku 저장소에 코드를 올리기 위해 아래의 절차를 밟습니다. 
 
@@ -67,7 +75,7 @@ $ heroku logs --tail -a 저장소 이름
 Apply for the access token from the website. 
 > http://aiopen.etri.re.kr/
 
-파이썬 언어를 이용한 예제 코드 아래와 같습니다.
+exobrain.py 예제 코드 아래와 같습니다.
 
 This is the example code making use of API in python.
 
@@ -105,3 +113,55 @@ This is the example code making use of API in python.
 ```
 
 ## Connection to DataBase
+1. heroku 사이트 내 addons에서 'Heroku Postgres'를 추가해줍니다.
+
+Look for the icon with 'Heroku Postgres' from addons in heroku website and add it to your repository.
+> https://elements.heroku.com/addons 
+2. 'heroku config' 명령어를 통해 확인한 주소를 환경변수로 설정해줍니다. 
+
+Set the environment path for DB using the url address from 'heroku config' command line.
+```
+$ set DATABASE_URL=postgres://자기 url 주소
+```
+3. app.py 파일 내에 아래의 코드를 추가해주세요.
+
+add the following code to the top of 'app.py' file.
+```
+import os
+import sqlalchemy
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+```
+4. 아래의 절차를 따라 커밋 후 테이블을 생성해봅니다.
+
+Follow the instruction below in order to commit the changes and create a brand new table.
+```
+$ git commit -a -m "added DB boilerplate"
+$ git push heroku master
+$ heroku run python
+>>> from app import db
+>>> db.create_all()
+>>> db.session.commit()
+```
+5. 생성된 테이블을 아래와 같이 SQLAlchemy를 활용하여 구성해줍니다.
+
+Now construct the table with SQLAlchemy by utilizing the following code.
+```
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80))
+    email = db.Column(db.String(120), unique=True)
+
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+
+    def __repr__(self):
+        return '<Name %r>' % self.name
+        
+  ##
+ ```
