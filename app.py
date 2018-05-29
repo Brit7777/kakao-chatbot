@@ -12,6 +12,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+chosen_menu = 'null'
 
 class FoodList(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -71,19 +72,17 @@ def Message():
 				}
 			}	
 		elif string == "점심" or string == "다시":
-			status = 'F'
-			menu = get_menu(status)
+			global chosen_menu
+			chosen_menu = get_menu()
 			dataSend = {
 				"message": {
-					"text": "점심으로 오늘의 날씨에 어울리는 '" + str(menu.name) + "' 어때요?\n 마음에 드시면 '콜'라고 말해주세요! 별로일 경우 '다시'라고 말해주시면 다시 추천 도와드릴게요^^"
+					"text": "점심으로 오늘의 날씨에 어울리는 '" + str(chosen_menu.name) + "' 어때요?\n 마음에 드시면 '콜'라고 말해주세요! 별로일 경우 '다시'라고 말해주시면 다시 추천 도와드릴게요^^"
 				}
 			}
 		elif string == "콜":
-			status = 'T'
-			menu = get_menu(status)
 			dataSend = {
 				"message": {
-					"text": "탁월한 선택입니다! \n 오늘의 점심'" + str(menu.name) + "'의 위치는" + str(menu.location) + "입니다."
+					"text": "탁월한 선택입니다! \n 오늘의 점심'" + str(chosen_menu.name) + "'의 위치는" + str(chosen_menu.location) + "입니다."
 				}
 			}
 		else:
@@ -124,12 +123,10 @@ def get_weather():
 	return summary.group(1), nowTemp.group(1)
 
 def get_menu(status):
-	if status == 'F':
-		real_weather, temp = get_weather()
-		menus = FoodList.query.filter_by(weather=real_weather)
-		rand = random.randrange(0, menus.count()) 
-		menu = menus[rand]
-		status == 'T'
+	real_weather, temp = get_weather()
+	menus = FoodList.query.filter_by(weather=real_weather)
+	rand = random.randrange(0, menus.count()) 
+	menu = menus[rand]
 	return menu
 
 def get_text(text):
