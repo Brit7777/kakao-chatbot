@@ -70,7 +70,7 @@ def Message():
 					"text": "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
 				}
 			}	
-		elif string == "점심" || string == "다시":
+		elif string == "점심" or string == "다시":
 			menu = get_menu()
 			dataSend = {
 				"message": {
