@@ -157,9 +157,9 @@ def get_text(text):
 		result = '날씨'
 	elif [element for element in b if element['lemma'] == '점심']:
 		result = '점심'
-	elif [element for element in b if element['lemma'] == '좋']:
+	elif [element for element in b if element['lemma'] == '콜']:
 		result = '콜'
-	elif [element for element in b if element['lemma'] == '싫']:
+	elif [element for element in b if element['lemma'] == '다시']:
 		result = '다시'
 	else:
 		result = '미등록'
