@@ -16,7 +16,7 @@ In order to register for KakaoTalk Plus Friend as an administrator, get access t
 A step by step series of examples that tell you how to get a development env running
 
 ```
-python -m pip install virtualenv
+$ python -m pip install virtualenv
 
 //app 코드가 있는 폴더로 이동
 //move to the folder that contains app.py
@@ -40,23 +40,68 @@ Download Heroku CLI(command line interface) from the website below.
 cmd창에서 Heroku 접속
 Access to Heroku through cmd
 ```
-heroku login
+$ heroku login
 //type id
 //type pwd
 ```
 Git에서 사용 가능한 Heroku 저장소 형성
 create Heroku repository for Git
 ```
-heroku create
+$ heroku create
 ```
 4. Heroku 저장소에 코드를 올리기 위해 아래의 절차를 밟습니다. 
 
 A step by step series of examples that tell you how to update the modified code to Heroku repository
 
 ```
-git add --all
-git commit -m "commit"
-git push heroku master
+$ git add --all
+$ git commit -m "commit"
+$ git push heroku master
 //to check log details
-heroku logs --tail -a 저장소 이름
+$ heroku logs --tail -a 저장소 이름
 ```
+## Using Exobrain API (optional)
+
+아래의 사이트에서 엑소브레인 API 사용 신청을 합니다.
+
+Apply for the access token from the website. 
+> http://aiopen.etri.re.kr/
+
+파이썬 언어를 이용한 예제 코드 아래와 같습니다.
+
+This is the example code making use of API in python.
+
+```
+    #-*- coding:utf-8 -*-
+    import urllib3
+    import json
+
+    openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"
+    accessKey = "YOUR_ACCESS_KEY"
+
+`analysisCode =` `"morp"`
+
+    text = "YOUR_SENTENCE"
+
+    requestJson = {
+        "access_key": accessKey,
+        "argument": {
+            "text": text,
+            "analysis_code": analysisCode
+        }
+    }
+
+    http = urllib3.PoolManager()
+    response = http.request(
+        "POST",
+        openApiURL,
+        headers={"Content-Type": "application/json; charset=UTF-8"},
+        body=json.dumps(requestJson)
+    )
+    
+    print("[responseCode] " + str(response.status))
+    print("[responBody]")
+    print(str(response.data,"utf-8"))
+```
+
+## Connection to DataBase
