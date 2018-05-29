@@ -121,7 +121,7 @@ def get_weather():
 	return summary.group(1), nowTemp.group(1)
 
 def get_menu():
-	global menu  #전역변수
+	#global menu  #전역변수
 	real_weather, temp = get_weather()
 	menus = FoodList.query.filter_by(weather=real_weather)
 	rand = random.randrange(0, menus.count()) 
