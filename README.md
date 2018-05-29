@@ -1,8 +1,8 @@
 # kakao-chatbot
 
-해당 튜토리얼은 카카오톡 사용자에 한해 간단하게 점심을 추천해주는 챗봇을 구현하기 위한 페이지입니다. '웨이버스 런치봇'은 Flask 라이브러리와 Heroku 무료 호스팅서버를 사용하였으며 DB는 Heroku에서 제공하는 Postgresql 기반으로 제공됩니다. 이 뿐만 아니라, 인공지능적 요소를 결합하기 위해 언어 분석에 사용되는 공공 인공지능 오픈 API '엑소브레인'을 적용하여 특정 단어가 포함되어 있는 문장에 대한 대답 과정을 구현하였습니다. 
+해당 튜토리얼은 카카오톡 사용자에 한해 간단하게 점심을 추천해주는 챗봇을 구현하기 위한 페이지입니다. '웨이버스 런치봇'은 Flask 라이브러리와 Heroku 무료 호스팅서버를 사용하였으며 DB는 Heroku에서 제공하는 Postgresql 기반으로 제공됩니다. 이 뿐만 아니라, 인공지능적 요소를 결합하기 위해 언어 분석에 사용되는 공공 인공지능 오픈 API '엑소브레인'을 적용하여 특정 단어가 포함되어 있는 문장에 대한 대답 과정을 구현하였습니다. '웨이버스 런치봇'을 사용해보고 싶다면 카카오톡 플러스 친구에서 친구 추가해주세요:)
 
-This tutorial is only for KaokaoTalk users to implement a simple chatbot that can be utilized for lunch recommendation. 'Wavus Lunchbot' is based on 'Flask' library and a free hosting server called 'Heroku', and its database is 'Postgresql' which is also a complimentary service that Heroku offers. Moreover, taking 'AI' into account, the public Open Source API 'Exobrain' has taken part in analyzing the sentence coming from the user so that lunchbot can respond to the sentence which contains a certain word. 
+This tutorial is only for KaokaoTalk users to implement a simple chatbot that can be utilized for lunch recommendation. 'Wavus Lunchbot' is based on 'Flask' library and a free hosting server called 'Heroku', and its database is 'Postgresql' which is also a complimentary service that Heroku offers. Moreover, taking 'AI' into account, the public Open Source API 'Exobrain' has taken part in analyzing the sentence coming from the user so that lunchbot can respond to the sentence which contains a certain word. If you want to take a look at my lunchbot, search '웨이버스 런치봇' in Kakao and add me:)
 
 ## Getting Started
 카카오톡 플러스친구 관리자 계정을 등록하기 아래 웹사이트에 접속하여 본인이 원하는 플러스친구 이름 및 사진을 설정합니다.
