@@ -82,7 +82,13 @@ def Message():
 		elif string == "콜":
 			dataSend = {
 				"message": {
-					"text": "탁월한 선택입니다! \n 오늘의 점심'" + str(chosen_menu.name) + "'의 위치는 " + str(chosen_menu.location) + "입니다."
+					"text": "탁월한 선택입니다! \n 오늘의 점심'" + str(chosen_menu.name) + "'의 위치는 " + str(chosen_menu.location) + "입니다.\n 식사 맛있게 하세요:)"
+				}
+			}
+		elif string == "고마워":
+			dataSend = {
+				"message": {
+					"text": "별말씀을요~맞점하시고 언제든지 다시 찾아주세요!"
 				}
 			}
 		else:
@@ -163,6 +169,8 @@ def get_text(text):
 		result = '콜'
 	elif [element for element in b if element['lemma'] == '다시']:
 		result = '다시'
+	elif [element for element in b if element['lemma'] == '고마워']:
+		result = '고마워'
 	else:
 		result = '미등록'
 	return result
