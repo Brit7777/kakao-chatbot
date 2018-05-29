@@ -10,7 +10,7 @@ This tutorial is only for KaokaoTalk users to implement a simple chatbot that ca
 In order to register for KakaoTalk Plus Friend as an administrator, get access to the address below and created a certain name and picture for your own page. 
 > https://center-pf.kakao.com
 
-### prerequesites
+### prerequisites
 초기 개발 환경을 구축하기 위해 아래의 절차를 따라합니다.
 
 A step by step series of examples that tell you how to get a development env running
@@ -23,6 +23,22 @@ $ python -m pip install virtualenv
 $ virtualenv venv
 $ cd venv/Scripts
 $ .\activate
+```
+requirements.txt에 있는 라이브러리 모두 설치해야 합니다.
+
+You must install all the libraries mentioned in 'requirements.txt' file.
+```
+click==6.7
+Flask==1.0.2
+Flask-SQLAlchemy==2.3.2
+gunicorn==19.8.1
+itsdangerous==0.24
+Jinja2==2.10
+MarkupSafe==1.0
+psycopg2-binary==2.7.4
+SQLAlchemy==1.2.7
+Werkzeug==0.14.1
+requests==2.18.4
 ```
 ## Deployment
 1. Heroku 서버를 사용하기 위한 계정을 만들어줍니다.
