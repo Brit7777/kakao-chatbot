@@ -202,6 +202,6 @@ db.session.commit()
  ```
  
  ## Keeping Heroku awake
- setInterval.js를 통해 Heroku 서버를 5분마다 깨워주도록 합니다. 
+ setInterval.js를 통해 Heroku 서버를 1분마다 깨워주도록 합니다. 
  
- With the help of setInterval.js file, wake Heroku server up every 5 minutes.
+ With the help of setInterval.js file, wake Heroku server up every minute.
