@@ -11,9 +11,9 @@ In order to register for KakaoTalk Plus Friend as an administrator, get access t
 > https://center-pf.kakao.com
 
 ### prerequisites
-초기 개발 환경을 구축하기 위해 아래의 절차를 따라합니다.
+개발에 필요한 라이브러리들이 엉망징창으로 꼬이는 것을 방지하기 위해 virtualenv로 독립적인 개발환경을 만들어줍니다. 이를 위해 아래의 절차를 따라합니다.
 
-A step by step series of examples that tell you how to get a development env running
+Virtualenv enables an independent developing environment for developers in case they have trouble locating all the necessary libraries. A step by step series of examples that tell you how to get a development env running
 
 ```
 $ python -m pip install virtualenv
@@ -24,7 +24,7 @@ $ virtualenv venv
 $ cd venv/Scripts
 $ .\activate
 ```
-requirements.txt에 있는 라이브러리 모두 설치해야 합니다.
+requirements.txt에 있는 라이브러리 모두 설치합니다.
 
 You must install all the libraries mentioned in 'requirements.txt' file.
 ```
